@@ -39,6 +39,12 @@ def index():
             fw.write(headers)
             reviews = []
             for commentbox in commentboxes:
+                """try:
+                    #name.encode(encoding='utf-8')
+                    image = commentbox.div.div.find_all('div', {'class': '_1BweB8'})[0].img
+
+                except:
+                    logging.info("image") """
                 try:
                     #name.encode(encoding='utf-8')
                     name = commentbox.div.div.find_all('p', {'class': '_2sc7ZR _2V5EHH'})[0].text
@@ -73,12 +79,12 @@ def index():
                           "Comment": custComment}
                 reviews.append(mydict)
             logging.info("log my final result {}".format(reviews))
-
-            
-            client = pymongo.MongoClient("mongodb+srv://pwskills:pwskills@cluster0.ln0bt5m.mongodb.net/?retryWrites=true&w=majority")
-            db =client['scrapper_eng_pwskills']
-            coll_pw_eng = db['scraper_pwskills_eng']
+            client = pymongo.MongoClient("mongodb+srv://amrutagurav333:ammuhrishi@cluster0.aax5ipc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
+            db =client['flipcart_data']
+            coll_pw_eng = db['flipcart_item_details']
             coll_pw_eng.insert_many(reviews)
+
+        
 
             return render_template('result.html', reviews=reviews[0:(len(reviews)-1)])
         except Exception as e:
